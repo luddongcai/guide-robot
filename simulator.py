@@ -68,8 +68,6 @@ class Simulator(object):
     def init_belief(self):
 
         if self.uniform_init_belief:
-            # self.b = numpy.array([ 0.8, 0.0,  0.0,  0.2, 0.0 , 0.0 , 0.0,  0.0 , 0.0 , 0.0 , 0.0 , 0.0, \
-            # 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0])
             self.b = numpy.ones(len(self.states)) / float(len(self.states))
 
             # print self.b
@@ -149,7 +147,7 @@ class Simulator(object):
             # print('current cost: ' + str(self.reward_mat[self.a, self.s]))
             # print('overall cost: ' + str(overall_reward))
 
-            if 'take' in self.actions[self.a]:
+            if 'go' in self.actions[self.a]:
                 # print '--------------------',
                 if self.print_flag is True:
                     print('\treward: ' + str(self.reward_mat[self.a, self.s]))
@@ -189,10 +187,10 @@ class Simulator(object):
             cost_list.append(cost)
             overall_reward_list.append(overall_reward)
 
-            deliver_index = int(self.a - (3 + self.num_item + self.num_person \
+            guide_index = int(self.a - (3 + self.num_item + self.num_person \
                 + self.num_room))
 
-            if deliver_index == int(self.s):
+            if guide_index == int(self.s):
                 success_list.append(1.0)
             else:
                 success_list.append(0.0)
@@ -220,7 +218,7 @@ class Simulator(object):
 
 def main():
 
-    s = Simulator(uniform_init_belief = False, 
+    s = Simulator(uniform_init_belief = True, 
         auto_state = True, 
         auto_observations = True, 
         print_flag = False, 
